@@ -10,6 +10,12 @@ Formato da tabela -> categories
 
 export async function findAllCategories(req, res){
 
+    try{
+        const {rows} = await connectionDB.query(`SELECT * FROM categories;`);
+        res.send(rows);
+    }catch(err){
+        res.status(500).send(err.message);
+    }
 }
 
 export async function createCategory(req, res){
