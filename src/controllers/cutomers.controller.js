@@ -23,10 +23,10 @@ export async function findCustomers(req, res) {
 
     try {
         if(cpf){
-            const customer = await connectionDB.query(`SELECT * FROM customers WHERE cpf LIKE $1 || '%'`, [cpf]);
+            const customer = await connectionDB.query(`SELECT *, TO_CHAR(birthday, 'YYYY-MM-DD') AS birthday FROM customers WHERE cpf LIKE $1 || '%'`, [cpf]);
             return res.send(customer.rows);
         }
-        const { rows } = await connectionDB.query(`SELECT * FROM customers;`);
+        const { rows } = await connectionDB.query(`SELECT *, TO_CHAR(birthday, 'YYYY-MM-DD') AS birthday FROM customers;`);
         res.send(rows);
     } catch (err) {
         return res.status(500).send(err.message);
