@@ -14,7 +14,6 @@ export async function postRentals(req, res) {
     }
 }
 
-
 export async function findRentals(req, res) {
     const { gameId } = req.query
     try {
@@ -102,6 +101,10 @@ export async function findRentals(req, res) {
     }
 }
 
+export async function returnRental(req, res){
+   const rental = res.locals.rental;
+   res.send(rental) 
+}
 export async function deleteRental(req, res){
     const {id} = req.params
     try{
