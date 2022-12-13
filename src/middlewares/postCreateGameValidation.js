@@ -14,7 +14,7 @@ export async function postCreateGameValidation(req, res, next) {
         if (findCategory.rows.length === 0) {
             return res.status(409).send("Esta categoria não existe")
         }
-        const findGame = await connectionDB.query(`SELECT name FROM games WHERE name = $1;`, [game.name]);
+        const findGame = await connectionDB.query(`SELECT name FROM games WHERE LOWER (name) = LOWER($1);`, [game.name]);
         if (findGame.rows.length !== 0) {
             return res.status(409).send("Jogo já cadastrado")
         }
