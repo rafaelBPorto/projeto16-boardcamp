@@ -103,6 +103,11 @@ export async function findRentals(req, res) {
 
 export async function returnRental(req, res){
    const rental = res.locals.rental;
+   try{
+    await connectionDB.query(`UPDATE rentals SET "returnDate"=$1, "originalPrice"=$2, "delayFee"=$3 WHERE id = $4;`, [rental.returnDate, rental.originalPrice, rental.delayFee, rental.id]);
+   }catch(err){
+    return res.status(500).send(err.message);
+   }
    res.send(rental) 
 }
 export async function deleteRental(req, res){
