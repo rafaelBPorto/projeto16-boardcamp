@@ -19,10 +19,10 @@ export async function createCustomers(req, res) {
 }
 
 export async function findCustomers(req, res) {
-    const {cpf} = req.query;    
+    const { cpf } = req.query;
 
     try {
-        if(cpf){
+        if (cpf) {
             const customer = await connectionDB.query(`SELECT *, TO_CHAR(birthday, 'YYYY-MM-DD') AS birthday FROM customers WHERE cpf LIKE $1 || '%'`, [cpf]);
             return res.send(customer.rows);
         }
@@ -32,4 +32,18 @@ export async function findCustomers(req, res) {
         return res.status(500).send(err.message);
     }
 
+}
+
+export async function findCustumersById(req, res){
+    const {id} = req.params;
+
+    try{
+        const {rows} = await connectionDB.query(`SELECT *, TO_CHAR(birthday, 'YYYY-MM-DD') AS birthday FROM customers WHERE id = $1`, [id])
+        if(rows[0]===undefined){
+            return res.sendStatus(404);
+        }
+        res.send(rows[0]);
+    }catch(err){
+        return res.status(500).send(err.message);
+    }
 }
