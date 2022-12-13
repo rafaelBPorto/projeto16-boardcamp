@@ -5,6 +5,7 @@ import gamesRoutes from "./routes/games.route.js"
 
 const app = express();
 app.use(express.json());
+
 app.use(categoriesRoutes);
 app.use(gamesRoutes);
 
