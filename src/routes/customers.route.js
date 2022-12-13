@@ -1,14 +1,14 @@
 import { Router } from "express";
-import { createCustomers } from "../controllers/cutomers.controller.js";
+import { createCustomers, findCustomers } from "../controllers/cutomers.controller.js";
 import { postCreateCustomersValidation } from "../middlewares/createCustomersValidation.middleware.js";
 
 const router = Router();
 
 //Inserir um cliente
-router.post("/customers", postCreateCustomersValidation, createCustomers)
+router.post("/customers", postCreateCustomersValidation, createCustomers);
 
 //Listar clientes
-
+router.get("/customers", findCustomers);
 //Buscar cliente por id
 
 //Atualizar um cliente
