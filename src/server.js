@@ -5,6 +5,7 @@ import gamesRoutes from "./routes/games.route.js"
 import customersRoutes from "./routes/customers.route.js"
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use(categoriesRoutes);
