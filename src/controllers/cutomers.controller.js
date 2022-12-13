@@ -23,8 +23,8 @@ export async function findCustomers(req, res) {
 
     try {
         if(cpf){
-            const customer = await connectionDB.query(`SELECT * FROM customers WHERE cpf = $1`, [cpf]);
-            return res.send(customer.rows[0]);
+            const customer = await connectionDB.query(`SELECT * FROM customers WHERE cpf LIKE $1 || '%'`, [cpf]);
+            return res.send(customer.rows);
         }
         const { rows } = await connectionDB.query(`SELECT * FROM customers;`);
         res.send(rows);
