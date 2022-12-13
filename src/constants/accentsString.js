@@ -1,0 +1,3 @@
+export const ACCENT_STRING = "ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÕÔÖóòôõöÚÙÛÜúùûüÇç"
+
+export const NO_ACCENT_STRING = "AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuÇc"

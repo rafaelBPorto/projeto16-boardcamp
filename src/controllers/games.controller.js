@@ -1,5 +1,5 @@
 import { connectionDB } from "../database/db.js"
-
+import { ACCENT_STRING, NO_ACCENT_STRING } from "../constants/accentsString.js"
 
 export async function findGames(req, res) {
     const { name } = req.query
@@ -10,11 +10,9 @@ export async function findGames(req, res) {
             games = await connectionDB.query(
                 `
                 SELECT * FROM games 
-                WHERE TRANSLATE(LOWER(name), 'ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÕÔÖóòôõöÚÙÛÜúùûüÇç', 
-                                             'AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuÇc') 
-                like TRANSLATE(LOWER($1) || '%','ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÕÔÖóòôõöÚÙÛÜúùûüÇç', 
-                                             'AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuÇc');
-            `, [name]);
+                WHERE TRANSLATE(LOWER(name), $1, $2) 
+                LIKE TRANSLATE(LOWER($3) || '%',$1, $2);
+            `, [ACCENT_STRING, NO_ACCENT_STRING, name]);
 
         } else {
             games = await connectionDB.query(
