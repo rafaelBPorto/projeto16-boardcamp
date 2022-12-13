@@ -21,9 +21,10 @@ export default async function createRentalValidation(req, res, next) {
         }
         const rentalsGame = await connectionDB.query(`
             SELECT * FROM rentals 
-            WHERE ('gameId' = $1 and 'returnDate' is null)
+            WHERE ("gameId" = $1 and "returnDate" is null)
             `, [rental.gameId]);
-        if (rentalsGame.rowCount - game.stockTotal < 1) {
+          console.log("alugueis", game.rows[0].stockTotal - rentalsGame.rowCount)
+        if (game.rows[0].stockTotal - rentalsGame.rowCount < 1) {
             return res.status(400).send("jogo não disponível");
         }
         
